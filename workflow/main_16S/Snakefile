@@ -1,4 +1,14 @@
 
+import pandas as pd
+
+configfile: "../../config/config.yaml"
+
+samples = pd.read_csv(config["metadata"], sep = "\t", index_col = 0).index.tolist()
+print(samples)
+
+include: "rules/preprocessing.smk"
+include: "rules/q2_denoising.smk"
+
 rule all:
 	input:
-		
+		rules.qiime_dada2_denoise_single.output

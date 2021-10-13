@@ -1,22 +1,27 @@
 rule trimming:
 	input:
-		r1 = os.path.join(config["fastq_path"], "{}")
-		r2 = os.path.join(config["fastq_path"], "{}")
+		config["fastq_dir_path"]
 	output:
-		r1 = temp("results/preprocessing/trimming/{}.fastq"),
-		r2 = temp("results/preprocessing/trimming/{}.fastq")
+		r1 = temp("results/preprocessing/trimming/{sample}_R1_.fastq"),
+		r2 = temp("results/preprocessing/trimming/{sample}_R2_.fastq")
 	conda:
 		"../envs/qiime2-2021.8.yaml"
 	log:
-		"results/log/trimming/{}.log"
+		"results/log/trimming/{sample}.log"
 	params:
 		fwd_primer_seq = config["fwd_primer_seq"],
 		rvs_primer_seq = config["rvs_primer_seq"]
 	shell:
 		"""
+		r1=$(find {input} | grep {wildcards.sample}"_" | grep "_R1_")
+		r2=$(find {input} | grep {wildcards.sample}"_" | grep "_R2_")
+		
+		echo "R1: "$r1 > {log}
+		echo "R2: "$r2 >> {log}
+
 		cutadapt -g {params.fwd_primer_seq} -G {params.rvs_primer_seq} \
 				-o {output.r1} -p {output.r2} \
-				{input.r1} {input.r2} 2> {log}
+				$r1 $r2 2>> {log}
 		"""
 
 rule mergepairs:
@@ -24,11 +29,11 @@ rule mergepairs:
 		r1 = rules.trimming.output.r1,
 		r2 = rules.trimming.output.r2
 	output:
-		temp("results/preprocessing/merge/{}.fastq")
+		temp("results/preprocessing/merge/{sample}.fastq")
 	conda:
 		"../envs/qiime2-2021.8.yaml"
 	log:
-		"results/log/mergepairs/{}.log"
+		"results/log/mergepairs/{sample}.log"
 	shell:
 		"""
 		vsearch --fastq_mergepairs {input.r1} \

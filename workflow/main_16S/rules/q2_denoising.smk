@@ -37,7 +37,7 @@ rule qiime_demux_summarize:
 			--o-visualization {output}
 		"""
 
-rule qiime_dada2_denoise-single:
+rule qiime_dada2_denoise_single:
 	input:
 		rules.qiime_tools_import.output
 	output:
@@ -50,7 +50,7 @@ rule qiime_dada2_denoise-single:
 		"results/log/qiime_dada2_denoise-single/log.log"
 	threads: 8
 	params:
-		trunc_len = 0,
+		trunc_len = 0
 	shell:
 		"""
 		qiime dada2 denoise-single \
@@ -61,4 +61,3 @@ rule qiime_dada2_denoise-single:
 			--o-table {output.table} \
 			--o-denoising-stats {output.stats}
 		"""
-

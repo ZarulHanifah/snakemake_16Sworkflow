@@ -1,12 +1,12 @@
 ###
 metadata:
-  input_folder/metadata.csv
+  ../../input_folder/metadata.csv
 classifier:
-  input_folder/new_classifier.qza
-fastq_path:
-  input_folder/ALL_FASTQ
+  ../../input_folder/new_classifier.qza
+fastq_dir_path:
+  ../../input_folder/ALL_FASTQ
 fwd_primer_seq:
   CCTACGGGNGGCWGCAG                # V3V4
 rvs_primer_seq:
   GACTACHVGGGTATCTAATCC            # V3V4
----
+...
