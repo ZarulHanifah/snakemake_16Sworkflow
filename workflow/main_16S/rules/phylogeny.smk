@@ -74,7 +74,7 @@ rule mock_diversity_alpha_rarefaction:
 	log:
 		"results/log/mock_diversity_alpha_rarefaction/log.log"
 	params:
-		max_depth = config["read_depth"]["highest"]
+		max_depth = config["read_depth"]["highest"],
 		metrics = "observed_features chao1 faith_pd shannon simpson_e",
 		steps = 100
 	shell:
