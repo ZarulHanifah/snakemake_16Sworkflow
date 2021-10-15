@@ -2,13 +2,13 @@ rule feature_table_rarefy:
     input:
         rules.filter_table_nonmicrobial.output
     output:
-        f"results/normalised_{seqdepth}/{seqdepth}_table.qza"
+        f"results/normalised/normalised_table.qza"
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
         "results/log/feature_table_rarefy/log.log"
     params:
-        sampling_depth = seq_depth
+        sampling_depth = config["read_depth"]["lowest"]
     shell:
         """
         qiime feature-table rarefy \
@@ -23,13 +23,13 @@ rule taxa_barplot:
         taxonomy = rules.feature_classifier_classify_sklearn.output,
         metadata = config["metadata"]
     output:
-        f"results/normalised_{seqdepth}/taxa_barplots.qzv"
+        f"results/normalised/taxa_barplots.qzv"
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
         "results/log/taxa_barplot/log.log"
     params:
-        sampling_depth = seq_depth
+        sampling_depth = config["read_depth"]["lowest"]
     shell:
         """
         qiime taxa barplot \
@@ -47,14 +47,14 @@ rule diversity_alpha_rarefaction:
         tree = rules.phylogeny_midpoint_root.output,
         metadata = config["metadata"]
     output:
-        f"results/normalised_{seqdepth}/alpha_rarefaction.qzv"
+        f"results/normalised/alpha_rarefaction.qzv"
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
         "results/log/diversity_alpha_rarefaction/log.log"
     params:
         metrics = "observed_features chao1 faith_pd shannon simpson_e",
-        sampling_depth = seq_depth,
+        sampling_depth = config["read_depth"]["lowest"],
         steps = 50
     shell:
         """
@@ -76,14 +76,14 @@ rule diversity_core_metrics_phylogenetic:
         table = rules.feature_table_rarefy.output,
         metadata = config["metadata"]
     output:
-        directory(f"results/normalised_{seqdepth}/CORE_METRICS")
+        directory(f"results/normalised/CORE_METRICS")
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
         "results/log/diversity_alpha_rarefaction/log.log"
     params:
         metrics = "observed_features chao1 faith_pd shannon simpson_e",
-        sampling_depth = seq_depth,
+        sampling_depth = config["read_depth"]["lowest"]
         steps = 50
     shell:
         """
