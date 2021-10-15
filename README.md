@@ -6,5 +6,5 @@ My Snakemake implementation for 16S analysis. If you have snakemake installed, t
 If you find "qzv" files, you can visualize it one [QIIME 2 View](https://view.qiime2.org/)
 
 # Current plans for the pipeline
-	- main_16S
-	- picrust2 (coming soon)
+- main_16S
+- picrust2 (coming soon)

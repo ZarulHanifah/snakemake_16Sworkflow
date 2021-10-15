@@ -5,7 +5,7 @@ My Snakemake implementation for 16S analysis. If you have snakemake installed, t
 # How to visualise the data
 If you find "qzv" files, you can visualize it one [QIIME 2 View](https://view.qiime2.org/)
 
-# How snakemake works on this QIIME2 pipeline
+# Read depth consideration
 
 There will be a few "pitstops" in the pipeline where some information needs to be added into config.yaml.
 
@@ -23,10 +23,10 @@ This will be used to draw a rarefaction curve with the highest possible number o
 By visualizing the rarefaction curves, you should be able to determine whether the number of reads are adequate to at least plateaue the alpha diversity (whether you pretty much "found everyone" in your sample). If you achieve this, good. If not, it is your call.
 
 But let's say if:
-	- Rarefactions plateaued at 10k reads
-	- 2/100 samples were at 1k reads, and did not plateaue
-	- The next sample of lowest read depth is 20k reads, and it plateaue
+- Rarefactions plateaued at 10k reads
+- 2/100 samples were at 1k reads, and did not plateaue
+- The next sample of lowest read depth is 20k reads, and it plateaue
 
 Then I would subsample number of reads to 20k to maximise as much read depth while including as much samples. If the two samples are very crucial, maybe I would request a topup of the reads.
 
-Fill in the config.yaml (`config["read_depth"]["lowest"]). Then the pipeline will continue the downstream analyses.
+Fill in the config.yaml (`config["read_depth"]["lowest"]`). Then the pipeline will continue the downstream analyses.
