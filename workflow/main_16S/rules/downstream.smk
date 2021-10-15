@@ -2,7 +2,7 @@ rule feature_table_rarefy:
     input:
         rules.filter_table_nonmicrobial.output
     output:
-        f"results/normalised/normalised_table.qza"
+        "results/normalised/normalised_table.qza"
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
@@ -23,7 +23,7 @@ rule taxa_barplot:
         taxonomy = rules.feature_classifier_classify_sklearn.output,
         metadata = config["metadata"]
     output:
-        f"results/normalised/taxa_barplots.qzv"
+        "results/normalised/taxa_barplots.qzv"
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
@@ -39,15 +39,13 @@ rule taxa_barplot:
             --o-visualization {output} &> {log}
         """
 
-
-
 rule diversity_alpha_rarefaction:
     input:
         table = rules.feature_table_rarefy.output,
         tree = rules.phylogeny_midpoint_root.output,
         metadata = config["metadata"]
     output:
-        f"results/normalised/alpha_rarefaction.qzv"
+        "results/normalised/alpha_rarefaction.qzv"
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
@@ -76,14 +74,14 @@ rule diversity_core_metrics_phylogenetic:
         table = rules.feature_table_rarefy.output,
         metadata = config["metadata"]
     output:
-        directory(f"results/normalised/CORE_METRICS")
+        directory("results/normalised/CORE_METRICS")
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
         "results/log/diversity_alpha_rarefaction/log.log"
     params:
         metrics = "observed_features chao1 faith_pd shannon simpson_e",
-        sampling_depth = config["read_depth"]["lowest"]
+        sampling_depth = config["read_depth"]["lowest"],
         steps = 50
     shell:
         """
