@@ -9,4 +9,9 @@ fwd_primer_seq:
   CCTACGGGNGGCWGCAG                # V3V4
 rvs_primer_seq:
   GACTACHVGGGTATCTAATCC            # V3V4
+read_depth:
+    highest:
+        0
+    lowest:
+        0
 ...
