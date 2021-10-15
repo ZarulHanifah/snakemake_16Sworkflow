@@ -10,10 +10,6 @@ include: "rules/preprocessing.smk"
 include: "rules/q2_denoising.smk"
 include: "rules/taxonomy.smk"
 
-rule all:
-	input:
-		determine_all_output()
-
 def determine_all_output():
 	# before highest read
 	if config["read_depth"]["highest"] == 0:
@@ -41,3 +37,8 @@ def determine_all_output():
 			rules.core_metrics_phylogenetics.output
 		]
 	return results
+	
+rule all:
+	input:
+		determine_all_output()
+
