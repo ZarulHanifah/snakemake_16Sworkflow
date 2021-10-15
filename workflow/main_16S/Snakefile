@@ -6,12 +6,6 @@ configfile: "../../config/config.yaml"
 samples = pd.read_csv(config["metadata"], sep = "\t", index_col = 0).index.tolist()
 print(samples)
 
-include: "rules/preprocessing.smk"
-include: "rules/q2_denoising.smk"
-include: "rules/taxonomy.smk"
-include: "rules/phylogeny.smk"
-include: "rules/downstream.smk"
-
 def determine_all_output():
 	# before highest read
 	print(config["read_depth"]["lowest"])
@@ -41,6 +35,14 @@ def determine_all_output():
 			rules.core_metrics_phylogenetics.output
 		]
 	return results
+
+
+include: "rules/preprocessing.smk"
+include: "rules/q2_denoising.smk"
+include: "rules/taxonomy.smk"
+include: "rules/phylogeny.smk"
+include: "rules/downstream.smk"
+
 
 rule all:
 	input:
