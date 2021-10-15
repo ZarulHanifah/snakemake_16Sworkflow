@@ -18,7 +18,7 @@ rule tools_import:
 			--type {params.type} \
 			--input-path $inputdir \
 			--input-format {params.input_format} \
-			--output-path {output} 2> {log}
+			--output-path {output} &> {log}
 		"""
 
 rule demux_summarize:
@@ -34,7 +34,7 @@ rule demux_summarize:
 		"""
 		qiime demux summarize \
 			--i-data {input} \
-			--o-visualization {output}
+			--o-visualization {output} &> {log}
 		"""
 
 rule dada2_denoise_single:
@@ -59,7 +59,7 @@ rule dada2_denoise_single:
 			--p-n-threads {threads} \
 			--o-representative-sequences {output.rep_seqs} \
 			--o-table {output.table} \
-			--o-denoising-stats {output.stats}
+			--o-denoising-stats {output.stats} &> {log}
 		"""
 
 rule feature_table_summarize:
@@ -77,7 +77,7 @@ rule feature_table_summarize:
 		qiime feature-table summarize \
 			--i-table {input.table} \
 			--o-visualization {output} \
-			--m-sample-metadata-file {input.metadata}
+			--m-sample-metadata-file {input.metadata} &> {log}
 		"""
 
 rule feature_table_tabulate_seqs:
@@ -93,5 +93,5 @@ rule feature_table_tabulate_seqs:
 		"""
 		qiime feature-table tabulate-seqs \
 			--i-data {input} \
-			--o-visualization {output}
+			--o-visualization {output} &> {log}
 		"""

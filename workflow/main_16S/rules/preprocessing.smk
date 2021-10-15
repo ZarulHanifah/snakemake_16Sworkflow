@@ -21,7 +21,7 @@ rule trimming:
 
 		cutadapt -g {params.fwd_primer_seq} -G {params.rvs_primer_seq} \
 				-o {output.r1} -p {output.r2} \
-				$r1 $r2 2>> {log}
+				$r1 $r2 &> {log}
 		"""
 
 rule mergepairs:
@@ -38,5 +38,5 @@ rule mergepairs:
 		"""
 		vsearch --fastq_mergepairs {input.r1} \
 				--reverse {input.r2} \
-				--fastqout {output} 2> {log}
+				--fastqout {output} &> {log}
 		"""
