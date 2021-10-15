@@ -82,7 +82,7 @@ rule feature_table_summarize:
 
 rule feature_table_tabulate_seqs:
 	input:
-		rules.qiime_dada2_denoise_single.output.rep_seqs
+		rules.dada2_denoise_single.output.rep_seqs
 	output:
 		"results/dada2/rep_seqs.qzv"
 	conda:
