@@ -1,6 +1,6 @@
 rule feature_classifier_classify_sklearn:
 	input:
-		rep_seqs = rules.qiime_dada2_denoise_single.output.rep_seqs,
+		rep_seqs = rules.dada2_denoise_single.output.rep_seqs,
 		classifier = config["classifier"]
 	output:
 		"results/taxonomy/taxonomy.qza"
