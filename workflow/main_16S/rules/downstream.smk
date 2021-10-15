@@ -2,7 +2,7 @@ rule feature_table_rarefy:
     input:
         rules.filter_table_nonmicrobial.output
     output:
-        f"results/normalised_{seq_depth}/{seq_depth}_table.qza"
+        f"results/normalised_{seqdepth}/{seqdepth}_table.qza"
     conda:
         "../envs/qiime2-2021.8.yaml"
     log:
