@@ -12,3 +12,20 @@ include: "rules/q2_denoising.smk"
 rule all:
 	input:
 		rules.qiime_dada2_denoise_single.output
+
+
+
+def determine_all_output:
+	# before highest read
+	if config["read_depth"]["highest"] == 0:
+		results =[
+			rules.feature_table_summarize.output,
+			rules.feature_table_tabulate_seqs.output
+		]
+	# before lowest read
+	elif config["read_depth"]["lowest"] == 0:
+
+	# after lowest read
+	else:
+
+	return 

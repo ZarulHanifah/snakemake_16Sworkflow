@@ -1,4 +1,4 @@
-rule qiime_tools_import:
+rule tools_import:
 	input:
 		expand(rules.mergepairs.output, sample = samples)
 	output:
@@ -6,7 +6,7 @@ rule qiime_tools_import:
 	conda:
 		"../envs/qiime2-2021.8.yaml"
 	log:
-		"results/log/qiime_tools_import/log.log"
+		"results/log/tools_import/log.log"
 	params:
 		type = "SampleData[SequencesWithQuality]",
 		input_format = "CasavaOneEightSingleLanePerSampleDirFmt"
@@ -21,15 +21,15 @@ rule qiime_tools_import:
 			--output-path {output} 2> {log}
 		"""
 
-rule qiime_demux_summarize:
+rule demux_summarize:
 	input:
-		rules.qiime_tools_import.output
+		rules.tools_import.output
 	output:
 		"results/demux.qzv"
 	conda:
 		"../envs/qiime2-2021.8.yaml"
 	log:
-		"results/log/qiime_demux_summarize/log.log"
+		"results/log/demux_summarize/log.log"
 	shell:
 		"""
 		qiime demux summarize \
@@ -37,9 +37,9 @@ rule qiime_demux_summarize:
 			--o-visualization {output}
 		"""
 
-rule qiime_dada2_denoise_single:
+rule dada2_denoise_single:
 	input:
-		rules.qiime_tools_import.output
+		rules.tools_import.output
 	output:
 		rep_seqs = "results/dada2/rep_seqs.qza",
 		table = "results/dada2/table.qza",
@@ -47,7 +47,7 @@ rule qiime_dada2_denoise_single:
 	conda:
 		"../envs/qiime2-2021.8.yaml"
 	log:
-		"results/log/qiime_dada2_denoise-single/log.log"
+		"results/log/dada2_denoise_single/log.log"
 	threads: 8
 	params:
 		trunc_len = 0
@@ -60,4 +60,38 @@ rule qiime_dada2_denoise_single:
 			--o-representative-sequences {output.rep_seqs} \
 			--o-table {output.table} \
 			--o-denoising-stats {output.stats}
+		"""
+
+rule feature_table_summarize:
+	input:
+		table = rules.dada2_denoise_single.output.table,
+		metadata = config["metadata"]
+	output:
+		"results/dada2/table.qzv"
+	conda:
+		"../envs/qiime2-2021.8.yaml"
+	log:
+		"results/log/feature_table_summarize/log.log"
+	shell:
+		"""
+		qiime feature-table summarize \
+			--i-table {input.table} \
+			--o-visualization {output} \
+			--m-sample-metadata-file {input.metadata}
+		"""
+
+rule feature_table_tabulate_seqs:
+	input:
+		rules.qiime_dada2_denoise_single.output.rep_seqs
+	output:
+		"results/dada2/rep_seqs.qzv"
+	conda:
+		"../envs/qiime2-2021.8.yaml"
+	log:
+		"results/log/feature_table_tabulate_seqs/log.log"
+	shell:
+		"""
+		qiime feature-table tabulate-seqs \
+			--i-data {input} \
+			--o-visualization {output}
 		"""
