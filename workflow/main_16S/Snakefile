@@ -14,6 +14,8 @@ include: "rules/downstream.smk"
 
 def determine_all_output():
 	# before highest read
+	print(config["read_depth"]["lowest"])
+	print(config["read_depth"]["highest"])
 	if config["read_depth"]["highest"] == 0:
 		results = [
 			rules.feature_table_summarize.output,
