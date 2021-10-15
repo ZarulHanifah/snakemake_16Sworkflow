@@ -9,6 +9,8 @@ print(samples)
 include: "rules/preprocessing.smk"
 include: "rules/q2_denoising.smk"
 include: "rules/taxonomy.smk"
+include: "rules/phylogeny.smk"
+include: "rules/downstream.smk"
 
 def determine_all_output():
 	# before highest read
@@ -37,7 +39,7 @@ def determine_all_output():
 			rules.core_metrics_phylogenetics.output
 		]
 	return results
-	
+
 rule all:
 	input:
 		determine_all_output()
