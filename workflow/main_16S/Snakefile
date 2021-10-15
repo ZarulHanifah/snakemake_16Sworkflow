@@ -8,24 +8,36 @@ print(samples)
 
 include: "rules/preprocessing.smk"
 include: "rules/q2_denoising.smk"
+include: "rules/taxonomy.smk"
 
 rule all:
 	input:
-		rules.qiime_dada2_denoise_single.output
+		determine_all_output()
 
-
-
-def determine_all_output:
+def determine_all_output():
 	# before highest read
 	if config["read_depth"]["highest"] == 0:
-		results =[
+		results = [
 			rules.feature_table_summarize.output,
-			rules.feature_table_tabulate_seqs.output
+			rules.feature_table_tabulate_seqs.output,
+			rules.metadata_tabulate_taxonomy.output,
+			rules.vis_filter_table_nonmicrobial.output,
+			rules.phylogeny_midpoint_root.output
 		]
+		print("If all done, then modify config.yaml, read_depth, highest")
 	# before lowest read
 	elif config["read_depth"]["lowest"] == 0:
-
+		results = [
+			rules.mock_diversity_alpha_rarefaction.output
+		]
+		print("If all done, then set config.yaml, read_depth, lowest")
 	# after lowest read
 	else:
+		seqdepth = config["read_depth"]["lowest"]
 
-	return 
+		results = [
+			rules.taxa_barplot.output,
+			rules.diversity_alpha_rarefaction.output,
+			rules.core_metrics_phylogenetics.output
+		]
+	return results
