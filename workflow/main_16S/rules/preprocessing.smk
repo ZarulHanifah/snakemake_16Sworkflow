@@ -5,7 +5,7 @@ rule trimming:
 		r1 = temp("results/preprocessing/trimming/{sample}_R1_.fastq"),
 		r2 = temp("results/preprocessing/trimming/{sample}_R2_.fastq")
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/trimming/{sample}.log"
 	params:
@@ -31,7 +31,7 @@ rule mergepairs:
 	output:
 		temp("results/preprocessing/merge/{sample}.fastq")
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/mergepairs/{sample}.log"
 	shell:

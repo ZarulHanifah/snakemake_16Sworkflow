@@ -5,7 +5,7 @@ rule feature_classifier_classify_sklearn:
 	output:
 		"results/taxonomy/taxonomy.qza"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/feature_classifier_classify_sklearn/log.log"
 	shell:
@@ -22,7 +22,7 @@ rule metadata_tabulate_taxonomy:
 	output:
 		"results/taxonomy/taxonomy.qzv"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/metadata_tabulate_taxonomy/log.log"
 	shell:
@@ -39,7 +39,7 @@ rule filter_table_nonmicrobial:
 	output:
 		"results/dada2/filt_table.qza"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/filter_table_nonmicrobial/log.log"
 	params:
@@ -60,7 +60,7 @@ rule vis_filter_table_nonmicrobial:
 	output:
 		"results/dada2/filt_rep_seqs.qza"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/vis_filter_table_nonmicrobial/log.log"
 	shell:
@@ -78,7 +78,7 @@ rule filter_rep_seqs_nonmicrobial:
 	output:
 		"results/dada2/filt_rep_seqs.qza"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/filter_rep_seqs_nonmicrobial/log.log"
 	params:

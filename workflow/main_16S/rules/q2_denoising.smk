@@ -4,7 +4,7 @@ rule tools_import:
 	output:
 		"results/demux.qza"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/tools_import/log.log"
 	params:
@@ -27,7 +27,7 @@ rule demux_summarize:
 	output:
 		"results/demux.qzv"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/demux_summarize/log.log"
 	shell:
@@ -45,7 +45,7 @@ rule dada2_denoise_single:
 		table = "results/dada2/table.qza",
 		stats = "results/dada2/stats.qza"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/dada2_denoise_single/log.log"
 	threads: 8
@@ -69,7 +69,7 @@ rule feature_table_summarize:
 	output:
 		"results/dada2/table.qzv"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/feature_table_summarize/log.log"
 	shell:
@@ -86,7 +86,7 @@ rule feature_table_tabulate_seqs:
 	output:
 		"results/dada2/rep_seqs.qzv"
 	conda:
-		"../envs/qiime2-2021.8.yaml"
+		"../envs/qiime2-2021.2.yaml"
 	log:
 		"results/log/feature_table_tabulate_seqs/log.log"
 	shell:

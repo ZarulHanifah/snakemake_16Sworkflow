@@ -4,7 +4,7 @@ rule feature_table_rarefy:
     output:
         "results/normalised/normalised_table.qza"
     conda:
-        "../envs/qiime2-2021.8.yaml"
+        "../envs/qiime2-2021.2.yaml"
     log:
         "results/log/feature_table_rarefy/log.log"
     params:
@@ -25,7 +25,7 @@ rule taxa_barplot:
     output:
         "results/normalised/taxa_barplots.qzv"
     conda:
-        "../envs/qiime2-2021.8.yaml"
+        "../envs/qiime2-2021.2.yaml"
     log:
         "results/log/taxa_barplot/log.log"
     params:
@@ -47,7 +47,7 @@ rule diversity_alpha_rarefaction:
     output:
         "results/normalised/alpha_rarefaction.qzv"
     conda:
-        "../envs/qiime2-2021.8.yaml"
+        "../envs/qiime2-2021.2.yaml"
     log:
         "results/log/diversity_alpha_rarefaction/log.log"
     params:
@@ -76,7 +76,7 @@ rule diversity_core_metrics_phylogenetic:
     output:
         directory("results/normalised/CORE_METRICS")
     conda:
-        "../envs/qiime2-2021.8.yaml"
+        "../envs/qiime2-2021.2.yaml"
     log:
         "results/log/diversity_alpha_rarefaction/log.log"
     params:
