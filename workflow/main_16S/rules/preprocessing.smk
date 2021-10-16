@@ -29,7 +29,8 @@ rule mergepairs:
 		r1 = rules.trimming.output.r1,
 		r2 = rules.trimming.output.r2
 	output:
-		temp("results/preprocessing/merge/{sample}.fastq")
+		uncomp = temp("results/preprocessing/merge/{sample}_XXX_L001_R1_001.fastq"),
+		comp = temp("results/preprocessing/merge/{sample}_XXX_L001_R1_001.fastq.gz")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
@@ -38,5 +39,7 @@ rule mergepairs:
 		"""
 		vsearch --fastq_mergepairs {input.r1} \
 				--reverse {input.r2} \
-				--fastqout {output} &> {log}
+				--fastqout {output.uncomp} &> {log}
+
+		cat {output.uncomp} | gzip > {output.comp}
 		"""

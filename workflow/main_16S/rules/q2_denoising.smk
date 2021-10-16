@@ -1,6 +1,6 @@
 rule tools_import:
 	input:
-		expand(rules.mergepairs.output, sample = samples)
+		expand(rules.mergepairs.output.comp, sample = samples)
 	output:
 		"results/demux.qza"
 	conda:
