@@ -3,6 +3,8 @@ metadata:
   ../../input_folder/metadata.csv
 classifier:
   ../../input_folder/new_classifier.qza
+input_path:
+  ../../input_folder
 fastq_dir_path:
   ../../input_folder/ALL_FASTQ
 fwd_primer_seq:
@@ -14,4 +16,8 @@ read_depth:
         46506
     lowest:
         8254
+dna_sequences_path:
+  ../../input_folder/dna-sequences.fasta
+feature_table_path:
+  ../../input_folder/feature-table.biom
 ...

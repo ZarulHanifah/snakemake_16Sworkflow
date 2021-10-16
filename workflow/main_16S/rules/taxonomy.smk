@@ -91,3 +91,13 @@ rule filter_rep_seqs_nonmicrobial:
 			--p-exclude {params.exclude} \
 			--o-filtered-sequences {output} &> {log}
 		"""
+
+rule get_dna_seq:
+	input:
+		rules.filter_rep_seqs_nonmicrobial.output
+	output:
+		"results/dna-sequences.fasta"
+	shell:
+		"""
+		unzip -d $(dirname {output}) -j {input} $(unzip -l {input} | grep "dna" | tr -s " " | cut -d " " -f5)
+		"""

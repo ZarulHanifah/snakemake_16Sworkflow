@@ -17,6 +17,17 @@ rule feature_table_rarefy:
             --o-rarefied-table {output} &> {log}
         """
 
+rule get_feature_table:
+	input:
+		rules.feature_table_rarefy.output
+	output:
+		"results/feature-table.biom"
+	shell:
+		"""
+		unzip -d $(dirname {output}) \
+			-j {input} $(unzip -l {input} | grep "biom" | tr -s " " | cut -d " " -f5)
+		"""
+
 rule taxa_barplot:
     input:
         table = rules.feature_table_rarefy.output,

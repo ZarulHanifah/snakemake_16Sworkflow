@@ -1,7 +1,7 @@
 rule place_seqs:
 	input:
-		asv = "input_folder/dna-sequences.fasta",
-		biom = "input_folder/feature-table.biom"
+		asv = config["dna_sequences_path"],
+		biom = config["feature_table_path"]
 	output:
 		tre = "results/out.tre",
 		intermediate = temp(directory("intermediate/place_seqs"))
@@ -36,7 +36,7 @@ rule hsp_traits:
 
 rule functional_metagenome_pipeline:
 	input:
-		biom = "input_folder/feature-table.biom",
+		biom = config["feature_table_path"],
 		nsti_hsp = expand(rules.hsp_traits.output, trait = ["16S"]),
 		function_hsp = rules.hsp_traits.output
 	output:

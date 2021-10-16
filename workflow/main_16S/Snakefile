@@ -14,6 +14,7 @@ def determine_all_output():
 			rules.feature_table_summarize.output,
 			rules.feature_table_tabulate_seqs.output,
 			rules.metadata_tabulate_taxonomy.output,
+			rules.get_dna_seq.output,
 			rules.vis_filter_table_nonmicrobial.output,
 			rules.phylogeny_midpoint_root.output
 		]
@@ -26,6 +27,7 @@ def determine_all_output():
 			rules.feature_table_summarize.output,
 			rules.feature_table_tabulate_seqs.output,
 			rules.metadata_tabulate_taxonomy.output,
+			rules.get_dna_seq.output,
 			rules.vis_filter_table_nonmicrobial.output,
 			rules.phylogeny_midpoint_root.output,
 			rules.mock_diversity_alpha_rarefaction.output
@@ -39,12 +41,14 @@ def determine_all_output():
 			rules.feature_table_summarize.output,
 			rules.feature_table_tabulate_seqs.output,
 			rules.metadata_tabulate_taxonomy.output,
+			rules.get_dna_seq.output,
 			rules.vis_filter_table_nonmicrobial.output,
 			rules.phylogeny_midpoint_root.output,
 			rules.mock_diversity_alpha_rarefaction.output,
 			rules.taxa_barplot.output,
 			rules.diversity_alpha_rarefaction.output,
-			rules.diversity_core_metrics_phylogenetics.output
+			rules.diversity_core_metrics_phylogenetics.output,
+			rules.get_feature_table.output
 		]
 	return results
 

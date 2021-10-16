@@ -1,4 +1,6 @@
 
+configfile: "../../config/config.yaml"
+
 include: "rules/picrust.smk"
 
 rule all:
