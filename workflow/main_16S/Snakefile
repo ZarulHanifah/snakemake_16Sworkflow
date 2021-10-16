@@ -8,27 +8,31 @@ print(samples)
 
 def determine_all_output():
 	# before highest read
-	print(config["read_depth"]["lowest"])
-	print(config["read_depth"]["highest"])
 	if config["read_depth"]["highest"] == 0:
 		results = [
+			rules.demux_summarize.output,
 			rules.feature_table_summarize.output,
 			rules.feature_table_tabulate_seqs.output,
 			rules.metadata_tabulate_taxonomy.output,
 			rules.vis_filter_table_nonmicrobial.output,
 			rules.phylogeny_midpoint_root.output
 		]
-		print("If all done, then modify config.yaml, read_depth, highest")
+		print("If all done, visualize results/dada2/filt_table.qzv",
+				"then modify config.yaml, read_depth, highest")
 	# before lowest read
 	elif config["read_depth"]["lowest"] == 0:
 		results = [
+			rules.demux_summarize.output,
+			rules.feature_table_summarize.output,
+			rules.feature_table_tabulate_seqs.output,
+			rules.metadata_tabulate_taxonomy.output,
+			rules.vis_filter_table_nonmicrobial.output,
+			rules.phylogeny_midpoint_root.output,
 			rules.mock_diversity_alpha_rarefaction.output
 		]
 		print("If all done, then set config.yaml, read_depth, lowest")
 	# after lowest read
 	else:
-		seqdepth = config["read_depth"]["lowest"]
-
 		results = [
 			rules.taxa_barplot.output,
 			rules.diversity_alpha_rarefaction.output,

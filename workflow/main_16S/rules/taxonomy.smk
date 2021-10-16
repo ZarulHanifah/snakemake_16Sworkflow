@@ -58,7 +58,7 @@ rule vis_filter_table_nonmicrobial:
 		table = rules.filter_table_nonmicrobial.output,
 		metadata = config["metadata"]
 	output:
-		"results/dada2/filt_rep_seqs.qza"
+		"results/dada2/filt_table.qzv"
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
