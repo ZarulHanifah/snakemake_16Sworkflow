@@ -30,13 +30,21 @@ def determine_all_output():
 			rules.phylogeny_midpoint_root.output,
 			rules.mock_diversity_alpha_rarefaction.output
 		]
-		print("If all done, then set config.yaml, read_depth, lowest")
+		print("If all done, visualize results/mock_diversity_alpha_rarefaction.qzv",
+				"then set config.yaml, read_depth, lowest")
 	# after lowest read
 	else:
 		results = [
+			rules.demux_summarize.output,
+			rules.feature_table_summarize.output,
+			rules.feature_table_tabulate_seqs.output,
+			rules.metadata_tabulate_taxonomy.output,
+			rules.vis_filter_table_nonmicrobial.output,
+			rules.phylogeny_midpoint_root.output,
+			rules.mock_diversity_alpha_rarefaction.output,
 			rules.taxa_barplot.output,
 			rules.diversity_alpha_rarefaction.output,
-			rules.core_metrics_phylogenetics.output
+			rules.diversity_core_metrics_phylogenetics.output
 		]
 	return results
 

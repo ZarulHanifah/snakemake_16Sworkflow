@@ -35,7 +35,7 @@ rule taxa_barplot:
         qiime taxa barplot \
             --i-table {input.table} \
             --i-taxonomy {input.taxonomy} \
-            --m-metadata-file {input.mapping} \
+            --m-metadata-file {input.metadata} \
             --o-visualization {output} &> {log}
         """
 
@@ -68,7 +68,7 @@ rule diversity_alpha_rarefaction:
             --o-visualization {output} &> {log}
         """
 
-rule diversity_core_metrics_phylogenetic:
+rule diversity_core_metrics_phylogenetics:
     input:
         tree = rules.phylogeny_midpoint_root.output,
         table = rules.feature_table_rarefy.output,
@@ -88,7 +88,7 @@ rule diversity_core_metrics_phylogenetic:
         qiime diversity core-metrics-phylogenetic \
             --i-phylogeny {input.tree} \
             --i-table {input.table} \
-            --p-sampling-depth {params.seq_depth} \
+            --p-sampling-depth {params.sampling_depth} \
             --m-metadata-file {input.metadata} \
             --output-dir {output} &> {log}
         """    

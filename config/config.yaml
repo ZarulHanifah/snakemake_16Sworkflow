@@ -11,7 +11,7 @@ rvs_primer_seq:
   GACTACHVGGGTATCTAATCC            # V3V4
 read_depth:
     highest:
-        0
+        46506
     lowest:
-        0
+        8254
 ...
