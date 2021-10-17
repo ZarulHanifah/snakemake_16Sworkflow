@@ -17,7 +17,7 @@ read_depth:
     lowest:
         8254
 dna_sequences_path:
-  ../../input_folder/dna-sequences.fasta
+  ../main_16S/results/dna-sequences.fasta
 feature_table_path:
-  ../../input_folder/feature-table.biom
+  ../main_16S/results/feature-table.biom
 ...

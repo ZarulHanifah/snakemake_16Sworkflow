@@ -43,3 +43,42 @@ rule mergepairs:
 
 		cat {output.uncomp} | gzip > {output.comp}
 		"""
+
+rule tools_import:
+	input:
+		expand(rules.mergepairs.output.comp, sample = samples)
+	output:
+		"results/demux.qza"
+	conda:
+		"../envs/qiime2-2021.2.yaml"
+	log:
+		"results/log/tools_import/log.log"
+	params:
+		type = "SampleData[SequencesWithQuality]",
+		input_format = "CasavaOneEightSingleLanePerSampleDirFmt"
+	shell:
+		"""
+		inputdir=$(dirname {input[0]})
+
+    	qiime tools import \
+			--type {params.type} \
+			--input-path $inputdir \
+			--input-format {params.input_format} \
+			--output-path {output} &> {log}
+		"""
+
+rule demux_summarize:
+	input:
+		rules.tools_import.output
+	output:
+		report("results/demux.qzv", caption = "../report/demux_summarize.rst", category = "Preprocessing")
+	conda:
+		"../envs/qiime2-2021.2.yaml"
+	log:
+		"results/log/demux_summarize/log.log"
+	shell:
+		"""
+		qiime demux summarize \
+			--i-data {input} \
+			--o-visualization {output} &> {log}
+		"""
