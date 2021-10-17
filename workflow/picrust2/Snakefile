@@ -5,8 +5,5 @@ include: "rules/picrust.smk"
 
 rule all:
 	input:
-		expand(rules.functional_add_descriptions.output, trait = ["16S", "EC", "KO", "TIGRFAM"]),
-		rules.pathway_add_descriptions.output
-
-
-
+		expand(rules.functional_add_descriptions.output, trait = ["EC", "KO", "TIGRFAM"]),
+		expand(rules.pathway_add_descriptions.output, trait = ["EC"])
