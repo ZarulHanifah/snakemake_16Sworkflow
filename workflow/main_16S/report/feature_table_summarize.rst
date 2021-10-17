@@ -1,1 +1,1 @@
-This is the summary of the feature table after denoising using DADA2.
+This is the summary of the feature table after denoising using DADA2, before any filtering.

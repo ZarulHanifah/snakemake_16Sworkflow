@@ -20,7 +20,7 @@ rule metadata_tabulate_taxonomy:
 	input:
 		rules.feature_classifier_classify_sklearn.output
 	output:
-		"results/taxonomy/taxonomy.qzv"
+		report("results/taxonomy/taxonomy.qzv", caption = "../report/metadata_tabulate_taxonomy.rst", category = "Taxonomy")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
@@ -58,7 +58,7 @@ rule vis_filter_table_nonmicrobial:
 		table = rules.filter_table_nonmicrobial.output,
 		metadata = config["metadata"]
 	output:
-		"results/dada2/filt_table.qzv"
+		report("results/dada2/filt_table.qzv", caption = "../report/vis_filter_table_nonmicrobial.rst", category = "Taxonomy")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:

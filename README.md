@@ -7,4 +7,4 @@ If you find "qzv" files, you can visualize it one [QIIME 2 View](https://view.qi
 
 # Current plans for the pipeline
 - main_16S
-- picrust2 (coming soon)
+- picrust2
