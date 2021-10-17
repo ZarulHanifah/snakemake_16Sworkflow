@@ -1,4 +1,3 @@
-
 rule dada2_denoise_single:
 	input:
 		rules.tools_import.output
@@ -29,7 +28,7 @@ rule feature_table_summarize:
 		table = rules.dada2_denoise_single.output.table,
 		metadata = config["metadata"]
 	output:
-		"results/dada2/table.qzv"
+		report("results/dada2/table.qzv", caption = "../report/feature_table_summarize.rst", category = "After denoising, before any filtering")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
@@ -46,7 +45,7 @@ rule feature_table_tabulate_seqs:
 	input:
 		rules.dada2_denoise_single.output.rep_seqs
 	output:
-		"results/dada2/rep_seqs.qzv"
+		report("results/dada2/rep_seqs.qzv", caption = "../report/feature_table_tabulate_seqs.rst", category = "After denoising, before any filtering")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
