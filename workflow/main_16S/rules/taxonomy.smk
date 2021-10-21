@@ -20,7 +20,7 @@ rule metadata_tabulate_taxonomy:
 	input:
 		rules.feature_classifier_classify_sklearn.output
 	output:
-		report("results/taxonomy/taxonomy.qzv", caption = "../report/metadata_tabulate_taxonomy.rst", category = "Taxonomy")
+		report("results/taxonomy/taxonomy.qzv", caption = "../report/metadata_tabulate_taxonomy.rst", category = "Step 3: Taxonomy")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
@@ -58,7 +58,7 @@ rule vis_filter_table_nonmicrobial:
 		table = rules.filter_table_nonmicrobial.output,
 		metadata = config["metadata"]
 	output:
-		report("results/dada2/filt_table.qzv", caption = "../report/vis_filter_table_nonmicrobial.rst", category = "Taxonomy")
+		report("results/dada2/filt_table.qzv", caption = "../report/vis_filter_table_nonmicrobial.rst", category = "Step 3: Taxonomy")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
@@ -96,7 +96,7 @@ rule get_dna_seq:
 	input:
 		rules.filter_rep_seqs_nonmicrobial.output
 	output:
-		"results/dna-sequences.fasta"
+		report("results/dna-sequences.fasta", caption = "../report/get_dna_seq.rst", category = "Step 3: Taxonomy")
 	shell:
 		"""
 		unzip -d $(dirname {output}) -j {input} $(unzip -l {input} | grep "dna" | tr -s " " | cut -d " " -f5)

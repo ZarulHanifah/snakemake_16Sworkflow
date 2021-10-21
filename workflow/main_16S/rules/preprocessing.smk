@@ -71,7 +71,7 @@ rule demux_summarize:
 	input:
 		rules.tools_import.output
 	output:
-		report("results/demux.qzv", caption = "../report/demux_summarize.rst", category = "Preprocessing")
+		report("results/demux.qzv", caption = "../report/demux_summarize.rst", category = "Step 1: Preprocessing")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:

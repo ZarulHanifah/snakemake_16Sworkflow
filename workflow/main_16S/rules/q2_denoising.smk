@@ -28,7 +28,7 @@ rule feature_table_summarize:
 		table = rules.dada2_denoise_single.output.table,
 		metadata = config["metadata"]
 	output:
-		report("results/dada2/table.qzv", caption = "../report/feature_table_summarize.rst", category = "Denoising")
+		report("results/dada2/table.qzv", caption = "../report/feature_table_summarize.rst", category = "Step 2: Denoising")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
@@ -45,7 +45,7 @@ rule feature_table_tabulate_seqs:
 	input:
 		rules.dada2_denoise_single.output.rep_seqs
 	output:
-		report("results/dada2/rep_seqs.qzv", caption = "../report/feature_table_tabulate_seqs.rst", category = "Denoising")
+		report("results/dada2/rep_seqs.qzv", caption = "../report/feature_table_tabulate_seqs.rst", category = "Step 2: Denoising")
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:

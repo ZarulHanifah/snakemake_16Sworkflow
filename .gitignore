@@ -1,3 +1,5 @@
 input_folder
 results
 .snakemake
+*png
+*html

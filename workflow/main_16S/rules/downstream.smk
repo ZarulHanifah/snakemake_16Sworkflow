@@ -21,7 +21,7 @@ rule get_feature_table:
 	input:
 		rules.feature_table_rarefy.output
 	output:
-		"results/feature-table.biom"
+		report("results/feature-table.biom", caption = "../report/get_feature_table.rst", category = "Step 4: Downstream")
 	shell:
 		"""
 		unzip -d $(dirname {output}) \
@@ -34,7 +34,7 @@ rule taxa_barplot:
         taxonomy = rules.feature_classifier_classify_sklearn.output,
         metadata = config["metadata"]
     output:
-        "results/normalised/taxa_barplots.qzv"
+        report("results/normalised/taxa_barplots.qzv", caption = "../report/taxa_barplot.rst", category = "Step 4: Downstream")
     conda:
         "../envs/qiime2-2021.2.yaml"
     log:
@@ -56,7 +56,7 @@ rule diversity_alpha_rarefaction:
         tree = rules.phylogeny_midpoint_root.output,
         metadata = config["metadata"]
     output:
-        "results/normalised/alpha_rarefaction.qzv"
+        report("results/normalised/alpha_rarefaction.qzv", caption = "../report/diversity_alpha_rarefaction.rst", category = "Step 4: Downstream")
     conda:
         "../envs/qiime2-2021.2.yaml"
     log:
@@ -85,7 +85,10 @@ rule diversity_core_metrics_phylogenetics:
         table = rules.feature_table_rarefy.output,
         metadata = config["metadata"]
     output:
-        directory("results/normalised/CORE_METRICS")
+        bray_curtis = report("results/normalised/CORE_METRICS/bray_curtis_emperor.qzv", caption = "../report/diversity_core_metrics_phylogenetics_bray_curtis.rst", category = "Step 4: Downstream"),
+        jaccard = report("results/normalised/CORE_METRICS/jaccard_emperor.qzv", caption = "../report/diversity_core_metrics_phylogenetics_jaccard.rst", category = "Step 4: Downstream"),
+        unweighted_unifrac = report("results/normalised/CORE_METRICS/unweighted_unifrac_emperor.qzv", caption = "../report/diversity_core_metrics_phylogenetics_unweighted_unifrac.rst", category = "Step 4: Downstream"),
+        weighted_unifrac = report("results/normalised/CORE_METRICS/weighted_unifrac_emperor.qzv", caption = "../report/diversity_core_metrics_phylogenetics_weighted_unifrac.rst", category = "Step 4: Downstream")
     conda:
         "../envs/qiime2-2021.2.yaml"
     log:
@@ -96,12 +99,14 @@ rule diversity_core_metrics_phylogenetics:
         steps = 50
     shell:
         """
+        outdir=$(dirname {output.bray_curtis})
+
         qiime diversity core-metrics-phylogenetic \
             --i-phylogeny {input.tree} \
             --i-table {input.table} \
             --p-sampling-depth {params.sampling_depth} \
             --m-metadata-file {input.metadata} \
-            --output-dir {output} &> {log}
+            --output-dir $outdir &> {log}
         """    
 
 

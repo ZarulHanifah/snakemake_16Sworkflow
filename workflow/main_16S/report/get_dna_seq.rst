@@ -1,0 +1,1 @@
+ASV sequences after filtering out mitochondria and chloroplast sequences.

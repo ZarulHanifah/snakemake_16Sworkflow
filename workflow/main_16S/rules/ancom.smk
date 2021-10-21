@@ -40,7 +40,7 @@ rule composition_ancom:
         table = rules.composition_add_pseudocount.output,
         metadata = config["metadata"]
     output:
-        "results/ancom/l6_ancom_{metadata}.qzv"
+        report("results/ancom/l6_ancom_{metadata}.qzv", caption = "../report/composition_ancom.rst", category = "EXTRA: ancom")
     conda:
         "../envs/qiime2-2021.2.yaml"
     log:
