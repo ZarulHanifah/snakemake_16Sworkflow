@@ -13,14 +13,13 @@ rvs_primer_seq:
     GACTACHVGGGTATCTAATCC            # V3V4
 read_depth:
     highest:
-        46506
+        0
     lowest:
-        8254
+        0
 dna_sequences_path:
     ../main_16S/results/dna-sequences.fasta
 feature_table_path:
     ../main_16S/results/feature-table.biom
 ancom:
     - organism
-    - 1
 ...

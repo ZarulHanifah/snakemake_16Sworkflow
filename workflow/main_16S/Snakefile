@@ -1,7 +1,7 @@
 
 import pandas as pd
 
-configfile: "../../config/config.yaml"
+configfile: "config/config.yaml"
 
 metadata = pd.read_csv(config["metadata"], sep = "\t", index_col = 0)
 samples = pd.read_csv(config["metadata"], sep = "\t", index_col = 0).index.tolist()
