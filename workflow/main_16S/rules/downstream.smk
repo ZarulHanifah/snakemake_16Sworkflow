@@ -100,6 +100,7 @@ rule diversity_core_metrics_phylogenetics:
     shell:
         """
         outdir=$(dirname {output.bray_curtis})
+		rm -rf $outdir
 
         qiime diversity core-metrics-phylogenetic \
             --i-phylogeny {input.tree} \

@@ -13,8 +13,8 @@ rule trimming:
 		rvs_primer_seq = config["rvs_primer_seq"]
 	shell:
 		"""
-		r1=$(find {input} | grep {wildcards.sample}"_" | grep "_R1_")
-		r2=$(find {input} | grep {wildcards.sample}"_" | grep "_R2_")
+		r1=$(find {input} | grep {wildcards.sample}"_" | grep "_1.fastq.gz")
+		r2=$(find {input} | grep {wildcards.sample}"_" | grep "_2.fastq.gz")
 		
 		echo "R1: "$r1 > {log}
 		echo "R2: "$r2 >> {log}
