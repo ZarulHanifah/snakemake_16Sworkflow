@@ -1,0 +1,100 @@
+
+import sys
+import os
+import re
+
+rule all:
+	input:
+		"results/classifier16S.qza"
+
+localrules: wgetSilva16SDatabase
+
+rule wgetSilva16SDatabase:
+	output:
+		refseq = temp("SILVA_132_QIIME_release/rep_set/rep_set_16S_only/99/silva_132_99_16S.fna"),
+		taxid = temp("SILVA_132_QIIME_release/taxonomy/16S_only/99/consensus_taxonomy_7_levels.txt")
+	params:
+		html = "https://www.arb-silva.de/fileadmin/silva_databases/qiime/Silva_132_release.zip"
+	shell:
+		"""
+		wget -O silva132.zip {params.html}
+		unzip silva132.zip $(unzip -l | grep "SILVA_132_QIIME_release")
+		"""
+
+rule qiime2Import:
+	input:
+		refseq = rules.wgetSilva16SDatabase.output.refseq,
+		taxid = rules.wgetSilva16SDatabase.output.taxid
+	output:
+		refseq = "results/refseq.qza",
+		taxid = "results/taxid.qza"
+	conda:
+		"envs/qiime2-2019.10.yaml"
+	params:
+		type_refseq = "FeatureData[Sequence]",
+		type_taxid = "FeatureData[Taxonomy]",
+		format_taxid = "HeaderlessTSVTaxonomyFormat"
+	message:
+		"""
+		===========================================================================
+		Importing reference sequences and taxonomic IDs
+		===========================================================================
+		"""
+	shell:
+		"""
+		qiime tools import --type {params.type_refseq}\
+		 --input-path {input.refseq} \
+		 --output-path {output.refseq}
+
+		qiime tools import --type {params.type_taxid} \
+		 --input-format {params.format_taxid} \
+		 --input-path {input.taxid} \
+		 --output-path {output.taxid}
+		"""
+
+rule extractReferenceByPrimerSequence:
+	input:
+		rules.qiime2Import.output.refseq
+	output:
+		"results/extract_refseq.qza"
+	conda:
+		"envs/qiime2-2019.10.yaml"
+	params:
+		fwd_primer = "CCTACGGGNGGCWGCAG",
+		rvs_primer = "GGATTAGATACCCBDGTAGTC"
+	message:
+		"""
+		===========================================================================
+		Extract reference by primer sequences
+		===========================================================================
+		"""
+	shell:
+		"""
+		qiime feature-classifier extract-reads --i-sequences {input} \
+		 --p-f-primer {params.fwd_primer} \
+		 --p-r-primer {params.rvs_primer} \
+		 --o-reads {output} \
+		 --verbose
+		"""
+
+rule trainingClassifier:
+	input:
+		extract_refseq = rules.extractReferenceByPrimerSequence.output,
+		taxid = rules.qiime2Import.output.taxid
+	output:
+		"results/classifier16S.qza"
+	conda:
+		"envs/qiime2-2019.10.yaml"
+	message:
+		"""
+		===========================================================================
+		Training classifier
+		===========================================================================
+		"""
+	shell:
+		"""
+		qiime feature-classifier fit-classifier-naive-bayes --i-reference-reads {input.extract_refseq} \
+		 --i-reference-taxonomy {input.taxid} \
+		 --o-classifier {output} \
+		 --verbose
+		"""
