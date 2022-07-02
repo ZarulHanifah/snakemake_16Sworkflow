@@ -1,4 +1,4 @@
-rule allignment_mafft:
+rule alignment_mafft:
 	input:
 		rules.filter_rep_seqs_nonmicrobial.output
 	output:
@@ -6,7 +6,7 @@ rule allignment_mafft:
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
-		"results/log/allignment_mafft/log.log"
+		"results/log/alignment_mafft/log.log"
 	shell:
 		"""
 		qiime alignment mafft \
@@ -14,15 +14,15 @@ rule allignment_mafft:
 			--o-alignment {output} &> {log}
 		"""
 
-rule allignment_mask:
+rule alignment_mask:
 	input:
-		rules.allignment_mafft.output
+		rules.alignment_mafft.output
 	output:
 		"results/tree/masked_aligned_rep_seqs.qza"
 	conda:
 		"../envs/qiime2-2021.2.yaml"
 	log:
-		"results/log/allignment_mask/log.log"
+		"results/log/alignment_mask/log.log"
 	shell:
 		"""
 		qiime alignment mask \
@@ -32,7 +32,7 @@ rule allignment_mask:
 
 rule phylogeny_fasttree:
 	input:
-		rules.allignment_mask.output
+		rules.alignment_mask.output
 	output:
 		"results/tree/unrooted_tree.qza"
 	conda:
