@@ -5,6 +5,7 @@ configfile: "config/config.yaml"
 
 metadata = pd.read_csv(config["metadata"], sep = "\t", index_col = 0)
 samples = pd.read_csv(config["metadata"], sep = "\t", index_col = 0).index.tolist()
+levels = [2, 3, 4, 5, 6]
 
 def process_ancom_list(ancom_list, metadata_df):
 	return [a for a in ancom_list if a in metadata_df.columns.tolist()]
@@ -59,7 +60,7 @@ def determine_all_output():
 			ancom_list = process_ancom_list(ancom_list, metadata)
 			if len(ancom_list) == 0:
 				pass
-			results.append(expand(rules.composition_ancom.output, metadata = ancom_list))
+			results.append(expand(rules.composition_ancom.output, level = levels, metadata = ancom_list))
 		except:
 			pass
 	return results

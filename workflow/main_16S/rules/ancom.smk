@@ -3,19 +3,17 @@ rule taxa_collapse:
         table = rules.feature_table_rarefy.output,
         taxonomy = rules.feature_classifier_classify_sklearn.output
     output:
-        "results/ancom/collapsed_table_l6.qza"
+        "results/ancom/collapsed_table_l{level}.qza"
     conda:
         "../envs/qiime2-2021.2.yaml"
     log:
-        "results/log/taxa_collapse/log.log"
-    params:
-        level = 6
+        "results/log/taxa_collapse/l{level}.log"
     shell:
         """
         qiime taxa collapse \
 			--i-table {input.table} \
 			--i-taxonomy {input.taxonomy} \
-			--p-level {params.level} \
+			--p-level {wildcards.level} \
 			--o-collapsed-table {output} &> {log}
         """
 
@@ -23,11 +21,11 @@ rule composition_add_pseudocount:
     input:
         rules.taxa_collapse.output
     output:
-        temp("results/ancom/comp_collapsed_table_l6.qza")
+        temp("results/ancom/comp_collapsed_table_l{level}.qza")
     conda:
         "../envs/qiime2-2021.2.yaml"
     log:
-        "results/log/composition_add_pseudocount/log.log"
+        "results/log/composition_add_pseudocount/l{level}.log"
     shell:
         """
         qiime composition add-pseudocount \
@@ -40,11 +38,11 @@ rule composition_ancom:
         table = rules.composition_add_pseudocount.output,
         metadata = config["metadata"]
     output:
-        report("results/ancom/l6_ancom_{metadata}.qzv", caption = "../report/composition_ancom.rst", category = "EXTRA: ancom")
+        report("results/ancom/l{level}_ancom_{metadata}.qzv", caption = "../report/composition_ancom.rst", category = "EXTRA: ancom")
     conda:
         "../envs/qiime2-2021.2.yaml"
     log:
-        "results/log/composition_ancom/{metadata}.log"
+        "results/log/composition_ancom/{metadata}_l{level}.log"
     shell:
         """
         qiime composition ancom \

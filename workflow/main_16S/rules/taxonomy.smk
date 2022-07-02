@@ -6,13 +6,11 @@ rule feature_classifier_classify_sklearn:
 		"results/taxonomy/taxonomy.qza"
 	conda:
 		"../envs/qiime2-2021.2.yaml"
-	threads: 8
 	log:
 		"results/log/feature_classifier_classify_sklearn/log.log"
 	shell:
 		"""
 		qiime feature-classifier classify-sklearn \
-			--p-n-jobs {threads} \
 			--i-classifier {input.classifier} \
 			--i-reads  {input.rep_seqs} \
 			--o-classification {output} &> {log}
