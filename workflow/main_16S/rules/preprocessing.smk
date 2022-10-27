@@ -5,7 +5,7 @@ rule trimming:
 		r1 = temp("results/preprocessing/trimming/{sample}_R1_.fastq"),
 		r2 = temp("results/preprocessing/trimming/{sample}_R2_.fastq")
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/trimming/{sample}.log"
 	params:
@@ -32,7 +32,7 @@ rule mergepairs:
 		uncomp = temp("results/preprocessing/merge/{sample}_XXX_L001_R1_001.fastq"),
 		comp = temp("results/preprocessing/merge/{sample}_XXX_L001_R1_001.fastq.gz")
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/mergepairs/{sample}.log"
 	shell:
@@ -50,7 +50,7 @@ rule tools_import:
 	output:
 		"results/demux.qza"
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/tools_import/log.log"
 	params:
@@ -73,7 +73,7 @@ rule demux_summarize:
 	output:
 		report("results/demux.qzv", caption = "../report/demux_summarize.rst", category = "Step 1: Preprocessing")
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/demux_summarize/log.log"
 	shell:

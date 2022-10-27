@@ -4,7 +4,7 @@ rule alignment_mafft:
 	output:
 		"results/tree/aligned_rep_seqs.qza"
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/alignment_mafft/log.log"
 	shell:
@@ -20,7 +20,7 @@ rule alignment_mask:
 	output:
 		"results/tree/masked_aligned_rep_seqs.qza"
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/alignment_mask/log.log"
 	shell:
@@ -36,7 +36,7 @@ rule phylogeny_fasttree:
 	output:
 		"results/tree/unrooted_tree.qza"
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/phylogeny_fasttree/log.log"
 	shell:
@@ -52,7 +52,7 @@ rule phylogeny_midpoint_root:
 	output:
 		"results/tree/rooted_tree.qza"
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/phylogeny_midpoint_root/log.log"
 	shell:
@@ -70,7 +70,7 @@ rule mock_diversity_alpha_rarefaction:
 	output:
 		"results/mock_diversity_alpha_rarefaction.qzv"
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/mock_diversity_alpha_rarefaction/log.log"
 	params:

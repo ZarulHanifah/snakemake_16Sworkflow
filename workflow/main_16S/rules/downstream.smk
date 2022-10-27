@@ -4,7 +4,7 @@ rule feature_table_rarefy:
     output:
         "results/normalised/normalised_table.qza"
     conda:
-        "../envs/qiime2-2021.2.yaml"
+        "../envs/qiime2.yaml"
     log:
         "results/log/feature_table_rarefy/log.log"
     params:
@@ -36,7 +36,7 @@ rule taxa_barplot:
     output:
         report("results/normalised/taxa_barplots.qzv", caption = "../report/taxa_barplot.rst", category = "Step 4: Downstream")
     conda:
-        "../envs/qiime2-2021.2.yaml"
+        "../envs/qiime2.yaml"
     log:
         "results/log/taxa_barplot/log.log"
     params:
@@ -58,7 +58,7 @@ rule diversity_alpha_rarefaction:
     output:
         report("results/normalised/alpha_rarefaction.qzv", caption = "../report/diversity_alpha_rarefaction.rst", category = "Step 4: Downstream")
     conda:
-        "../envs/qiime2-2021.2.yaml"
+        "../envs/qiime2.yaml"
     log:
         "results/log/diversity_alpha_rarefaction/log.log"
     params:
@@ -90,7 +90,7 @@ rule diversity_core_metrics_phylogenetics:
         unweighted_unifrac = report("results/normalised/CORE_METRICS/unweighted_unifrac_emperor.qzv", caption = "../report/diversity_core_metrics_phylogenetics_unweighted_unifrac.rst", category = "Step 4: Downstream"),
         weighted_unifrac = report("results/normalised/CORE_METRICS/weighted_unifrac_emperor.qzv", caption = "../report/diversity_core_metrics_phylogenetics_weighted_unifrac.rst", category = "Step 4: Downstream")
     conda:
-        "../envs/qiime2-2021.2.yaml"
+        "../envs/qiime2.yaml"
     log:
         "results/log/diversity_alpha_rarefaction/log.log"
     params:

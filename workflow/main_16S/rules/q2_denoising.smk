@@ -6,7 +6,7 @@ rule dada2_denoise_single:
 		table = "results/dada2/table.qza",
 		stats = "results/dada2/stats.qza"
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/dada2_denoise_single/log.log"
 	threads: 8
@@ -30,7 +30,7 @@ rule feature_table_summarize:
 	output:
 		report("results/dada2/table.qzv", caption = "../report/feature_table_summarize.rst", category = "Step 2: Denoising")
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/feature_table_summarize/log.log"
 	shell:
@@ -47,7 +47,7 @@ rule feature_table_tabulate_seqs:
 	output:
 		report("results/dada2/rep_seqs.qzv", caption = "../report/feature_table_tabulate_seqs.rst", category = "Step 2: Denoising")
 	conda:
-		"../envs/qiime2-2021.2.yaml"
+		"../envs/qiime2.yaml"
 	log:
 		"results/log/feature_table_tabulate_seqs/log.log"
 	shell:

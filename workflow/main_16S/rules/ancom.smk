@@ -5,7 +5,7 @@ rule taxa_collapse:
     output:
         "results/ancom/collapsed_table_l{level}.qza"
     conda:
-        "../envs/qiime2-2021.2.yaml"
+        "../envs/qiime2.yaml"
     log:
         "results/log/taxa_collapse/l{level}.log"
     shell:
@@ -23,7 +23,7 @@ rule composition_add_pseudocount:
     output:
         temp("results/ancom/comp_collapsed_table_l{level}.qza")
     conda:
-        "../envs/qiime2-2021.2.yaml"
+        "../envs/qiime2.yaml"
     log:
         "results/log/composition_add_pseudocount/l{level}.log"
     shell:
@@ -40,7 +40,7 @@ rule composition_ancom:
     output:
         report("results/ancom/l{level}_ancom_{metadata}.qzv", caption = "../report/composition_ancom.rst", category = "EXTRA: ancom")
     conda:
-        "../envs/qiime2-2021.2.yaml"
+        "../envs/qiime2.yaml"
     log:
         "results/log/composition_ancom/{metadata}_l{level}.log"
     shell:

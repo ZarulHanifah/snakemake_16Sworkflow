@@ -2,7 +2,7 @@
 metadata:
     ../../input_folder/metadata.csv
 classifier:
-    ../../input_folder/new_classifier.qza
+    ../../input_folder/silva-138-99-nb-classifier.qza
 input_path:
     ../../input_folder
 fastq_dir_path:
@@ -13,9 +13,9 @@ rvs_primer_seq:
     GACTACHVGGGTATCTAATCC            # V3V4
 read_depth:
     highest:
-        0
+        117445
     lowest:
-        0
+        107128
 dna_sequences_path:
     ../main_16S/results/dna-sequences.fasta
 feature_table_path:
