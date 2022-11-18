@@ -13,9 +13,9 @@ rvs_primer_seq:
     GACTACHVGGGTATCTAATCC            # V3V4
 read_depth:
     highest:
-        117445
+        0
     lowest:
-        107128
+        0
 dna_sequences_path:
     ../main_16S/results/dna-sequences.fasta
 feature_table_path:
