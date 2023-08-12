@@ -13,14 +13,15 @@ rule trimming:
 		rvs_primer_seq = config["rvs_primer_seq"]
 	shell:
 		"""
-		r1=$(find {input} | grep {wildcards.sample}"_" | grep "_1.fastq.gz")
-		r2=$(find {input} | grep {wildcards.sample}"_" | grep "_2.fastq.gz")
+		r1=$(find {input} | grep {wildcards.sample}"_" | grep "_R1_001.fastq.gz")
+		r2=$(find {input} | grep {wildcards.sample}"_" | grep "_R2_001.fastq.gz")
 		
 		echo "R1: "$r1 > {log}
 		echo "R2: "$r2 >> {log}
 
 		cutadapt -g {params.fwd_primer_seq} -G {params.rvs_primer_seq} \
 				-o {output.r1} -p {output.r2} \
+                --discard-untrimmed \
 				$r1 $r2 &> {log}
 		"""
 
