@@ -1,0 +1,9 @@
+__default__:
+        etc         : ""
+        jobname     : "{rule}.{wildcards}"
+        output      : "logs/cluster/{rule}.{wildcards}.out"
+        error       : "logs/cluster/{rule}.{wildcards}.err"
+feature_classifier_classify_sklearn:
+        etc         : "--mem=70G --time=3-00:00:00"
+alignment_mafft:
+        etc         : "--mem=70G --time=3-00:00:00"
