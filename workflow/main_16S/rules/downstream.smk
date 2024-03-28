@@ -110,11 +110,27 @@ rule diversity_core_metrics_phylogenetics:
             --output-dir $outdir &> {log}
         """    
 
+rule alpha_group_significance:
+    input:
+        bray = rules.diversity_core_metrics_phylogenetics.output.bray_curtis,
+        metadata = config["metadata"]
+    output:
+        directory("results/normalised/alpha_group_significance")
+    conda:
+        "qiime2"
+    log:
+        "results/log/alpha_group_significance/log.log"
+    shell:
+        """
+        indir=$(dirname {input.bray})
+        echo > {log}
+        mkdir -p {output}
 
-# for i in "$out_tmp"/RARE_"$seqdepth"/CORE_METRICS/*vector*; do
-#      a=$(sed 's/.*\///' <<< $i | sed 's/_vector.*//' )
-#      qiime diversity alpha-group-significance \
-#          --i-alpha-diversity $i \
-#          --m-metadata-file $mapping \
-#          --o-visualization "$out_tmp"/RARE_"$seqdepth"/CORE_METRICS/"$a"-group-significance.qzv
-# done
+        for ad in observed_features ace chao1 faith_pd shannon evenness ; do
+         qiime diversity alpha-group-significance \
+          --i-alpha-diversity "$indir"/"$ad"_vector.qza \
+          --m-metadata-file {input.metadata} \
+          --o-visualization {output}/"$ad"_statistics.qzv \
+          2>> {log}
+        done
+        """
